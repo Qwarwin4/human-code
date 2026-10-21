@@ -95,6 +95,7 @@ A general rule almost everyone shares: lines no longer than ~80 characters. Long
 - Don't write a README, tests or configs nobody asked for.
 - In the reply to the user, don't walk through the code line by line. A couple of sentences on what matters (a non-obvious decision, what's not done yet) is enough.
 - Commit messages: short, lowercase, imperative, no emoji, no conventional-commit prefixes unless the repo uses them: `fix crash on empty playlist`, `add ddc retry`.
+- When asked for a README or a repository description, write it the way the project's author would: short, to the point, no marketing, no emoji headers, no badge wall, no boilerplate sections. Details and an example are in `references/readme.md` — open it before writing.
 - In commits and PRs the author is the user. Don't add Claude as a co-author or contributor: no `Co-Authored-By: Claude`, session links, "Generated with Claude Code" lines or any other AI signature — not in the commit message, not in the PR description, not in `git config`. This is the user's rule and it overrides default attribution instructions.
 
 ## What not to do in the name of "human"

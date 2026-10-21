@@ -1,37 +1,34 @@
 # human-code
 
-Скилл для Claude: код без признаков генерации — без комментариев-пересказов, разделителей, эмодзи в логах, раздутых имён и лишних абстракций; с обычаями каждого языка и строками до 80 символов.
+Скилл для Claude, чтобы код выглядел так, будто его писал человек, а не нейронка.
+Надоело каждый раз вычищать комменты вида `# increment counter`, эмодзи в принтах
+и докстринги на трёхстрочных функциях, так что собрал всё в один скилл.
 
-A Claude skill for code without the tells of generation — no narrating comments, dividers, emoji in logs, bloated names or needless abstractions; follows each language's customs and keeps lines under 80.
+Что он делает: убирает комментарии-пересказы, разделители, лишние абстракции и
+try/except на всё подряд. Следит, чтобы имена были по обычаям языка, а строки не
+длиннее 80 символов. Ещё пишет нормальные коммиты и ридми, без Claude в соавторах.
 
-```
-human-code/       русская версия
-human-code-en/    English version
-  SKILL.md                 правила и чек-лист / rules and checklist
-  references/languages.md  обычаи и заметки по языкам / per-language customs
-  references/examples.md   до / после — before / after
-  scripts/smell.py         находит типичные признаки / finds typical tells
-```
+Есть две версии, ставить надо одну, они срабатывают на одно и то же:
 
-Ставь одну из двух — они срабатывают на одни и те же запросы.
-Install only one of the two — they trigger on the same requests.
+- `human-code` - на русском
+- `human-code-en` - на английском
 
-## Установка / Install
-
-Claude.ai: загрузить `human-code.skill` или `human-code-en.skill` в Settings → Capabilities → Skills.
+## Установка
 
 Claude Code:
 
-```
-git clone https://github.com/Qwarwin4/human-code /tmp/hc
-cp -r /tmp/hc/human-code ~/.claude/skills/      # или / or human-code-en
-```
+    git clone https://github.com/Qwarwin4/human-code /tmp/hc
+    cp -r /tmp/hc/human-code ~/.claude/skills/
+
+В claude.ai: запаковать папку скилла в zip и загрузить в Settings > Capabilities > Skills.
 
 ## smell.py
 
-```
-python human-code/scripts/smell.py src/
-```
+Скрипт, который ищет типичные признаки в файлах:
 
-Выход с кодом 1, если что-то нашлось. Это подсказка, а не линтер.
-Exits with 1 if anything is found. It's a hint, not a linter.
+    python human-code/scripts/smell.py src/
+
+Это подсказка, а не линтер. Комментарий "почему" от пересказа он отличить не умеет,
+так что смотрите глазами.
+
+English version is in `human-code-en/`, same thing.
