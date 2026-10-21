@@ -10,6 +10,8 @@ human-code/
 └── scripts/smell.py         находит типичные признаки в файлах
 ```
 
+Английская версия — в папке [`en/`](en/) (скилл `human-code-en`). Ставь одну из двух: они срабатывают на одни и те же запросы.
+
 ## Установка
 
 Claude.ai: Settings → Capabilities → Skills → загрузить `human-code.skill` (или zip папки).
