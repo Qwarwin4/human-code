@@ -1,5 +1,9 @@
 # human-code
 
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:qwarwin@gmail.com)
+[![Telegram](https://img.shields.io/badge/Telegram-channel-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/qwarwin4git)
+
+
 [Русский](README.ru.md)
 
 A skill for Claude that makes the code it writes look like a person wrote it.
