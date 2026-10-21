@@ -66,6 +66,22 @@ AI designs for imaginary future extension. Humans write for the current task and
 - Don't log every step (`Starting...`, `Processing item 3...`, `Done!`). Humans print what actually needs to be seen.
 - No banners and `=` boxes in console tools unless requested.
 
+### The language's local customs
+
+Every language has settled habits its community follows almost without exception: name casing, where underscores go, how acronyms are written, which prefixes and suffixes are used, how files and modules are named. A real developer in that language does this on autopilot, and mixing the customs of different languages is one of the clearest signs of an outsider: `camelCase` in Rust, `SCREAMING_CASE` constants in Dart, `get_` getters in Go, an `I` prefix on interfaces in TypeScript.
+
+- Before writing in a language, recall its customs and follow them. A short cheat sheet for each language opens its section in `references/languages.md`.
+- If the project departs from the language's customs, follow the project.
+- Don't carry habits from one language into another, even if a neighbouring file in a different language does it that way.
+
+### Line length
+
+A general rule almost everyone shares: lines no longer than ~80 characters. Long lines are harder to read, look bad in diffs and split editors, and they're a common AI tell — call chains and conditions crammed into half a screen.
+
+- If the project or the language's formatter has its own limit, that wins.
+- Break by meaning: after a comma in arguments, before an operator in a long condition, at each link of a call chain. Sometimes pulling a piece into a variable with a short clear name beats wrapping.
+- Long string literals, URLs and paths can stay as they are — splitting them is worse.
+
 ### Types and syntax
 
 - Type annotations where the language and project use them (signatures), not on every local variable.
@@ -93,5 +109,6 @@ AI designs for imaginary future extension. Humans write for the current task and
 - Is there a function/class called once that clarifies nothing? Inline it.
 - Is there a `try`, `if x is None`, `isinstance` that will never fire? Remove it.
 - Is there a name longer than three words on a variable that lives for a few lines? Shorten it.
+- Do names follow the language's customs (casing, underscores, acronyms)? Do lines fit in ~80 characters?
 - Any emoji, dividers, "Example usage", "In a real app"? Remove them.
 - Does the code look like the neighbouring files in the project? If not, adjust it.

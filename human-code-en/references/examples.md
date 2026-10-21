@@ -1,10 +1,10 @@
-# До / после
+# Before / after
 
-Примеры того, как выглядит типичный ИИ-код и что с ним делает живой разработчик. Смотри на них как на иллюстрацию принципа, а не шаблон для копирования.
+Examples of typical AI code and what a human developer does with it. Treat them as an illustration of the principle, not a template to copy.
 
-## Python: чтение конфига
+## Python: loading a config
 
-До:
+Before:
 
 ```python
 # ============================================
@@ -48,7 +48,7 @@ if __name__ == "__main__":
     print(config)
 ```
 
-После:
+After:
 
 ```python
 import json
@@ -60,11 +60,11 @@ def load_cfg(path: Path) -> dict:
         return json.load(f)
 ```
 
-Что случилось: отсутствующий файл и битый JSON теперь честно падают с исключением, которое вызывающий код может поймать там, где знает, что делать. Комментарии, докстринг, эмодзи, демо-блок — ушли, потому что ничего не добавляли.
+What happened: a missing file or broken JSON now honestly raises an exception the caller can catch where it knows what to do. The comments, docstring, emoji and demo block are gone because they added nothing.
 
-## Go: HTTP-обработчик
+## Go: HTTP handler
 
-До:
+Before:
 
 ```go
 // HandleGetUserRequest handles the HTTP request to get a user by ID.
@@ -97,7 +97,7 @@ func (userHandler *UserHandler) HandleGetUserRequest(responseWriter http.Respons
 }
 ```
 
-После:
+After:
 
 ```go
 func (s *Server) user(w http.ResponseWriter, r *http.Request) {
@@ -117,9 +117,9 @@ func (s *Server) user(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-## Rust: лишняя защита
+## Rust: needless defensiveness
 
-До:
+Before:
 
 ```rust
 /// Calculates the average of a slice of numbers.
@@ -143,7 +143,7 @@ pub fn calculate_average_value(numbers: &[f64]) -> Option<f64> {
 }
 ```
 
-После:
+After:
 
 ```rust
 pub fn avg(xs: &[f64]) -> Option<f64> {
@@ -154,15 +154,16 @@ pub fn avg(xs: &[f64]) -> Option<f64> {
 }
 ```
 
-## Комментарий, который стоит оставить
+## A comment worth keeping
 
 ```python
-# pactl иногда отдаёт громкость >100%, mpris её режет — clamp, иначе слайдер дёргается
+# pactl sometimes reports >100% volume and mpris clamps it,
+# so clamp here or the slider jumps
 vol = min(vol, 1.0)
 ```
 
-Он объясняет причину, которую из кода не увидеть. Такой комментарий человек пишет — один на экран, а не на каждую строку.
+It explains a reason you can't see from the code. That's the kind of comment a human writes — one per screen, not one per line.
 
-## Правка существующего кода
+## Editing existing code
 
-Если просят «добавь ретрай в `send()`», то меняется только `send()`. Не трогай форматирование соседних функций, не добавляй докстринги к коду, который не правил, не переименовывай переменные «для единообразия», не пиши `# Added retry logic`. Diff должен выглядеть так, будто его сделал человек, которому нужен был ретрай, — маленьким.
+If asked to "add a retry to `send()`", only `send()` changes. Don't touch the formatting of neighbouring functions, don't add docstrings to code you didn't edit, don't rename variables "for consistency", don't write `# Added retry logic`. The diff should look like it was made by someone who needed a retry — small.

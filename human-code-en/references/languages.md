@@ -15,6 +15,8 @@ Open only the section you need. The general rule is the same everywhere: the exi
 
 ## Python
 
+**Customs:** functions, variables, modules — `snake_case`; classes — `CapWords`; module constants — `UPPER_CASE`; internal things start with `_`. Modules and packages short, lowercase, no dashes. 4-space indent.
+
 - Types in signatures — yes; on local variables — no. `from typing import List, Dict` isn't needed in 3.9+: `list[str]`, `dict[str, int]`, `X | None`.
 - `pathlib` instead of `os.path` in new code; `with open(...)` without an extra `try`.
 - f-strings, comprehensions, `enumerate`, `zip`, unpacking. `any()`/`all()` instead of flags in a loop.
@@ -26,6 +28,8 @@ Open only the section you need. The general rule is the same everywhere: the exi
 
 ## Go
 
+**Customs:** `MixedCaps`, no underscores in names. Exported starts uppercase, internal lowercase. Acronyms keep one case throughout: `userID`, `ServeHTTP`, `urlStr`. A package is one short lowercase word, no `util`/`common`/`helpers`. Names don't repeat the package: `http.Server`, not `http.HTTPServer`. Tabs.
+
 - Short names are the language norm: `r`, `w`, `ctx`, `err`, `n`, `buf`, `c` for a client, a one- or two-letter method receiver (`func (s *Server)`).
 - `if err != nil { return fmt.Errorf("read cfg: %w", err) }` — wrap with short lowercase context, without "failed to" at every layer.
 - Don't create an interface until there's a second implementation or a test that needs it. Interfaces are declared by the consumer.
@@ -36,6 +40,8 @@ Open only the section you need. The general rule is the same everywhere: the exi
 
 ## Rust
 
+**Customs:** functions, variables, modules, crates in code — `snake_case`, short; types, traits, enum variants — `UpperCamelCase`; constants and statics — `SCREAMING_SNAKE_CASE`. Acronyms as one word: `HttpClient`, `Uuid`. Unused bindings start with `_`. Getters without `get_`; conversions are `as_`/`to_`/`into_`; the constructor is `new`. Short lifetimes: `'a`. 4 spaces.
+
 - `?` wherever possible; `anyhow`/`thiserror` per project. `unwrap()` is acceptable in tests, prototypes and where the invariant is obvious (then prefer `expect("...")` with a short reason).
 - Don't clone for convenience when you can borrow; but don't fight the borrow checker at the cost of readability.
 - `impl Trait` in arguments, iterators with `map/filter/collect` instead of manual loops where it reads simpler.
@@ -44,6 +50,8 @@ Open only the section you need. The general rule is the same everywhere: the exi
 - `rustfmt`, `clippy` without unnecessary `#[allow]`.
 
 ## C / C++
+
+**Customs:** in C — `snake_case`, macros and constants `UPPER_CASE`, a shared library prefix instead of namespaces (`ddc_open`, `ddc_close`). C++ has no single custom: the standard library is `snake_case`, many projects use `PascalCase` for types; class members get a `_` suffix or an `m_` prefix — follow the project and don't mix.
 
 - Naming and brace style strictly as in the project (snake_case, camelCase, Allman/K&R).
 - C++: `auto`, range-for, `std::unique_ptr`, `std::string_view`, `std::optional`. No manual `new`/`delete` in new code.
@@ -54,6 +62,8 @@ Open only the section you need. The general rule is the same everywhere: the exi
 
 ## C#
 
+**Customs:** types, methods, properties, public fields, namespaces — `PascalCase`; locals and parameters — `camelCase`; private fields — `_camelCase`. Interfaces start with `I`: `IPlayer`. Async methods end in `Async`. Acronyms as a word: `HttpClient`, `XmlReader` (two-letter ones stay `IO`).
+
 - `var` for locals where the type is obvious on the right. Expression-bodied members for one-liners.
 - `?.`, `??`, `is not null`, pattern matching, `using var`.
 - `/// <summary>` XML docs on a library's public API; private methods in an app don't need them.
@@ -61,6 +71,8 @@ Open only the section you need. The general rule is the same everywhere: the exi
 - `async`/`await` without `.ConfigureAwait(false)` in applications (in libraries — per project).
 
 ## JavaScript / TypeScript
+
+**Customs:** variables and functions — `camelCase`; classes, types, React components — `PascalCase`; `UPPER_CASE` only for real module-level constants. TS interfaces without `I`. File names `kebab-case` or whatever the framework uses. 2 spaces.
 
 - `const` by default, `let` when reassigned. Arrow functions, destructuring, `?.`, `??`, template strings.
 - TS: don't annotate what's inferred (`const n: number = 5`). Types go at the boundaries (parameters, exports, API responses).
@@ -71,6 +83,8 @@ Open only the section you need. The general rule is the same everywhere: the exi
 
 ## Dart / Flutter
 
+**Customs:** variables, functions and even constants — `lowerCamelCase` (not `SCREAMING_CASE`); types — `UpperCamelCase`; files, libraries, packages — `lowercase_with_underscores`. Privacy is a leading `_`, not a modifier. Acronyms longer than two letters as a word: `HttpRequest`, `Id`. 2 spaces.
+
 - `final` by default, `const` widget constructors where possible.
 - Don't split `build` into a dozen five-line `_buildXxx()` methods — either keep it in the tree or extract a separate widget if it's reused or genuinely large.
 - `?.`, `??`, `!` — as appropriate; `late` only if it's really initialized later.
@@ -78,11 +92,15 @@ Open only the section you need. The general rule is the same everywhere: the exi
 
 ## Kotlin / Java
 
+**Customs:** `camelCase` for functions and variables, `PascalCase` for classes, `UPPER_CASE` for `const val` / `static final`. Packages lowercase without underscores. Kotlin writes acronyms as a word (`HttpClient`), Java often does too. 4 spaces.
+
 - Kotlin: `val`, data classes, extension functions, `?.let`, `when`, scope functions without three levels of nesting.
 - Java: `var` (10+), records, streams — where they read simpler than a loop. No getters/setters on everything unless it's a bean.
 - Javadoc on every private method — no.
 
 ## Bash / shell
+
+**Customs:** local variables lowercase `snake_case`, declared with `local` inside functions; uppercase for environment and exported variables. Functions in `snake_case`. Script names lowercase with dashes.
 
 - `set -euo pipefail` at the top — yes, that's common practice.
 - Short lowercase variable names: `dir`, `f`, `out`. Uppercase for exported env vars.
