@@ -1,34 +1,35 @@
 # human-code
 
-Скилл для Claude, чтобы код выглядел так, будто его писал человек, а не нейронка.
-Надоело каждый раз вычищать комменты вида `# increment counter`, эмодзи в принтах
-и докстринги на трёхстрочных функциях, так что собрал всё в один скилл.
+[Русский](README.ru.md)
 
-Что он делает: убирает комментарии-пересказы, разделители, лишние абстракции и
-try/except на всё подряд. Следит, чтобы имена были по обычаям языка, а строки не
-длиннее 80 символов. Ещё пишет нормальные коммиты и ридми, без Claude в соавторах.
+A skill for Claude that makes the code it writes look like a person wrote it.
+I got tired of cleaning up `# increment counter` comments, emoji in prints and
+docstrings on three-line functions every time, so I put it all in one skill.
 
-Есть две версии, ставить надо одну, они срабатывают на одно и то же:
+What it does: drops comments that just restate the code, section dividers,
+needless abstractions and try/except around everything. Keeps names in line
+with each language's conventions and lines under 80 chars. Also writes normal
+commit messages and READMEs, and doesn't add Claude as a co-author.
 
-- `human-code` - на русском
-- `human-code-en` - на английском
+There are two versions, install only one since they trigger on the same stuff:
 
-## Установка
+- `human-code-en` - English
+- `human-code` - Russian
+
+## Install
 
 Claude Code:
 
     git clone https://github.com/Qwarwin4/human-code /tmp/hc
-    cp -r /tmp/hc/human-code ~/.claude/skills/
+    cp -r /tmp/hc/human-code-en ~/.claude/skills/
 
-В claude.ai: запаковать папку скилла в zip и загрузить в Settings > Capabilities > Skills.
+On claude.ai: zip the skill folder and upload it in Settings > Capabilities > Skills.
 
 ## smell.py
 
-Скрипт, который ищет типичные признаки в файлах:
+A small script that looks for the usual tells in your files:
 
-    python human-code/scripts/smell.py src/
+    python human-code-en/scripts/smell.py src/
 
-Это подсказка, а не линтер. Комментарий "почему" от пересказа он отличить не умеет,
-так что смотрите глазами.
-
-English version is in `human-code-en/`, same thing.
+It's a hint, not a linter. It can't tell a "why" comment from one that just
+narrates the code, so check by eye.
