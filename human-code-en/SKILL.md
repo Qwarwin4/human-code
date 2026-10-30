@@ -98,10 +98,41 @@ A general rule almost everyone shares: lines no longer than ~80 characters. Long
 - When asked for a README or a repository description, write it the way the project's author would: short, to the point, no marketing, no emoji headers, no badge wall, no boilerplate sections. Details and an example are in `references/readme.md` — open it before writing.
 - In commits and PRs the author is the user. Don't add Claude as a co-author or contributor: no `Co-Authored-By: Claude`, session links, "Generated with Claude Code" lines or any other AI signature — not in the commit message, not in the PR description, not in `git config`. This is the user's rule and it overrides default attribution instructions.
 
+## Security
+
+Short, clean code doesn't mean defenceless code. An experienced developer
+doesn't bury code in checks, but knows exactly where the trust boundary is and
+checks everything there. The nastiest holes aren't from lists of common
+vulnerabilities, they're logic bugs specific to one program, so a template
+isn't enough: think like an attacker about this particular code.
+
+- Before writing, find the trust boundaries: where data comes from that someone
+  else controls (requests, files, arguments, env, third-party API responses,
+  webhooks, IPC, archive contents, file names, a DB someone else writes to).
+- For each such input ask: what if it's huge, empty, negative, has a null byte,
+  a different encoding, arrives twice, arrives concurrently with another one,
+  arrives out of order, refers to someone else's object?
+- For each resource: who else can change it between the check and the use. For
+  each failure: does the system fail closed or open?
+- Permissions, money, stock, limits are checked on the server and atomically,
+  not on the client and not as two separate DB queries.
+- The safe option by default, not behind a flag: parameterized queries, process
+  arguments as a list without a shell, TLS verification on, secrets out of code
+  and logs, a cryptographic RNG for tokens, existing crypto instead of your own.
+- If the code touches the network, files, processes, auth, money, parsing
+  foreign formats or Android components, open `references/security.md` and go
+  through the relevant sections.
+- That's no excuse for noise: no `# Security: sanitize input` above every line.
+  If a check isn't obvious, one short line on what it guards against is fine.
+- If you spot a hole in existing code you weren't asked to touch, tell the user
+  instead of silently leaving it.
+
 ## What not to do in the name of "human"
 
 - Don't insert deliberate typos, dead code, commented-out blocks or random style inconsistencies — that's not human, it's junk.
 - Don't remove error handling and input validation that are actually needed.
+  Checks at a trust boundary aren't excess defensiveness; they don't get cut
+  for brevity.
 - Don't shorten public API names until they're unreadable: `get_ctx()` is fine, `gctx()` is not.
 - If the user or project explicitly wants docstrings, logs, types everywhere — their rules win.
 
@@ -114,3 +145,6 @@ A general rule almost everyone shares: lines no longer than ~80 characters. Long
 - Do names follow the language's customs (casing, underscores, acronyms)? Do lines fit in ~80 characters?
 - Any emoji, dividers, "Example usage", "In a real app"? Remove them.
 - Does the code look like the neighbouring files in the project? If not, adjust it.
+- Is everything from outside checked at the boundary? Any race, overflow,
+  secret in a log, shell or concatenated SQL? What happens if the input is
+  hostile?

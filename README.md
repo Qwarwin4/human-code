@@ -15,6 +15,10 @@ needless abstractions and try/except around everything. Keeps names in line
 with each language's conventions and lines under 80 chars. Also writes normal
 commit messages and READMEs, and doesn't add Claude as a co-author.
 
+It also doesn't skip security: it finds the trust boundaries in the code and
+checks hostile input there, including logic stuff like double spends, races
+and trusting client packets in mods, not only the usual SQL injection list.
+
 There are two versions, install only one since they trigger on the same stuff:
 
 - `human-code-en` - English
@@ -31,7 +35,8 @@ On claude.ai: zip the skill folder and upload it in Settings > Capabilities > Sk
 
 ## smell.py
 
-A small script that looks for the usual tells in your files:
+A small script that looks for the usual tells in your files, plus obviously
+risky calls like `shell=True`, `verify=False` or `pickle.loads`:
 
     python human-code-en/scripts/smell.py src/
 

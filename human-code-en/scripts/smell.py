@@ -47,6 +47,34 @@ RULES = [
         r"\s*\(.*(Starting|Successfully|completed successfully|Done!)")),
 ]
 
+RISKY = [
+    ("shell", re.compile(
+        r"shell\s*=\s*True|\bos\.system\(|\bpopen\(|\bsystem\(|sh\W+-c\b")),
+    ("tls check off", re.compile(
+        r"verify\s*=\s*False|InsecureSkipVerify:\s*true"
+        r"|rejectUnauthorized:\s*false|badCertificateCallback\s*=.*true")),
+    ("unsafe deserialize", re.compile(
+        r"pickle\.loads?\(|yaml\.load\((?!.*Loader)"
+        r"|Binary[F]ormatter|Object[I]nputStream")),
+    ("eval", re.compile(r"\beval\(|\bexec\(|new Function\(")),
+    ("unsafe c call", re.compile(
+        r"\b(gets|strcpy|strcat|sprintf|tmpnam|mktemp)\(")),
+    ("weak rng", rx(
+        r"(token|secret|passw\w*|key|otp|nonce|salt)\w*\s*:?=.*",
+        r"(Math\.random|random\.(rand\w*|choice)|math/rand|\brand\(\)",
+        r"|new Random\()")),
+    ("weak hash", rx(r"(md[5]|sha[1])\W.*pass")),
+    ("hardcoded secret", rx(
+        r"(passw(or)?d|secret|api_?key|token)\w*\s*:?=\s*",
+        r"[\"'][^\"'\s]{8,}[\"']")),
+    ("world-writable", re.compile(r"\b0o?777\b|chmod\s+(-R\s+)?777")),
+    ("innerHTML", re.compile(r"\.innerHTML\s*\+?=")),
+    ("sql concat", rx(
+        r"f[\"']\s*(select|insert|update|delete)\b.*\{",
+        r"|[\"'`]\s*(select|insert|update|delete)\b[^\"'`]*[\"'`]\s*\+",
+        r"|(select|insert|update|delete)\b.*[\"']\s*%\s*\(?\w")),
+]
+
 NARRATE = rx(
     r"^\s*(#|//)\s*(check (if|whether)|loop (through|over)|iterate",
     r"|increment|initiali[sz]e|create|return (the|a)|get the|set the",
@@ -85,6 +113,9 @@ def scan(path):
         for name, r in RULES:
             if r.search(ln):
                 hits.append((n, name, s))
+        for name, r in RISKY:
+            if r.search(ln):
+                hits.append((n, f"risky: {name}", s))
 
     if code >= 10 and cmts / code > 0.25:
         hits.append((0, "comment density", f"{cmts} comments / {code} code"))
