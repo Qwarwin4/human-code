@@ -1,11 +1,11 @@
-# human-code
+<h1 align="center">human-code</h1>
+
+<p align="center"><a href="README.md">English</a> | <b>Русский</b></p>
 
 <p align="center">
-  <a href="https://t.me/qwarwin4git"><img src="https://img.shields.io/badge/Telegram-Follow-26A5E4?style=for-the-badge&logo=telegram&logoColor=white&labelColor=1b1f24" height="40" alt="Telegram: follow the channel"></a>
-  <a href="mailto:qwarwin@gmail.com"><img src="https://img.shields.io/badge/Gmail-Contact-EA4335?style=for-the-badge&logo=gmail&logoColor=white&labelColor=1b1f24" height="40" alt="Gmail: contact"></a>
+  <a href="https://t.me/qwarwin4git"><img src="https://img.shields.io/badge/Telegram-Follow-26A5E4?style=for-the-badge&labelColor=1b1f24&logo=telegram&logoColor=white" height="40" alt="Telegram: follow the channel"></a>
+  <a href="mailto:qwarwin@gmail.com"><img src="https://img.shields.io/badge/Gmail-Contact-EA4335?style=for-the-badge&labelColor=1b1f24&logo=gmail&logoColor=white" height="40" alt="Gmail: contact"></a>
 </p>
-
-[English](README.md)
 
 Скилл для Claude, чтобы код выглядел так, будто его писал человек, а не нейронка.
 Надоело каждый раз вычищать комменты вида `# increment counter`, эмодзи в принтах
